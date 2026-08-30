@@ -36,6 +36,10 @@ RUN node --check /opt/hibiscus-mcp/server.mjs \
  && systemd-analyze verify hibiscus-fedora44.service hibiscus-fedora44-mcp.service hibiscus-fedora44.target \
  && systemctl enable hibiscus-fedora44.target
 
+RUN sed -i '2i#set($charsetHeader = $response.setContentType("text/html; charset=ISO-8859-1"))' \
+    /usr/local/hibiscus/plugins/hibiscus.server/lib/velocity/includes/header.vm \
+    /usr/local/hibiscus/plugins/jameica.webadmin/lib/velocity/includes/header.vm
+
 LABEL org.opencontainers.image.title="HIBISCUS-FEDORA44" \
       org.opencontainers.image.description="Fedora 44, Hibiscus Server 2.12.4 and bearer-aware Hibiscus MCP" \
       org.opencontainers.image.source="https://github.com/safrano9999/HIBISCUS-FEDORA44" \
